@@ -75,15 +75,29 @@ TikTok via `publish.py`.
 **REVISED 2026-07-13 (supersedes on-camera decision): FACELESS + AUTOMATED.
 Channel name: TraderCockpit.**
 
-Format = data-essay: Kokoro VO over real cockpit/gauntlet footage, motion-graphic
-concept cards (studio-kit compositions), kinetic captions. Pipeline runs via
+Format = data-essay with a PERSONA: **the narrator IS the machine** — JARVIS-style
+system voice (kokoro `bm_george`, calm British), first person: "I bred 349,914
+strategies. I refused to test ICT. I am not permitted to say 'validated.'"
+People love talking-AI/JARVIS characters; the cockpit is literally JARVIS-styled
+(JarvisCore in the real app) — the persona is true to the product, not a costume.
+Machine speaks over real cockpit/gauntlet footage + 3D HUD cards (tc-card:
+mandelbulb / ring-tunnel / particle-web backgrounds). Pipeline via
 `tools/produce.py` (VO → captions → assemble → shorts → publish).
+
+Persona rules: the machine never hypes, never promises, is politely ruthless
+("A machine that cannot say no is a marketing department"), always credits "my
+operator" for human decisions. Facts stay verified — the character is a voice,
+never a source of claims. Elevated seed idea: "I built a JARVIS for trading"
+(video #4 candidate) — build-in-public tour where the machine introduces itself.
 
 Anti-slop guardrails (mandatory — faceless lives or dies on these):
 1. Every video anchored on REAL screen captures + verified numbers. No generic
    stock-footage padding. The receipts ARE the face.
-2. YouTube altered/synthetic disclosure set on upload (`--synthetic` flag,
-   `status.containsSyntheticMedia`) — honest labeling, no gaming.
+2. YouTube altered/synthetic disclosure: `--synthetic` flag exists but is OFF by
+   default. Policy targets deceptively-realistic content (fake events, real-person
+   impersonation) — NOT AI-assisted editing/TTS of your own script over your own
+   real program. Our format doesn't trigger it; flip on per-video only if a video
+   ever contains realistic synthetic scenes.
 3. Target 8–12 min data-essays, not 20-min talking-head lengths — faceless
    retention math is different.
 4. MONTAGE-CRAFT rulebook + attention QA (TRIBE, internal) gate every cut.
