@@ -28,5 +28,13 @@ Produce a fact pack with:
    figures you could not resolve (note both), and any number that only exists on
    crowd-trackers. Never smooth over a gap; list it.
 
+8. **Claim records** — end the pack with a ready-to-save `claims.yaml` block: one typed
+   claim per fact the video may speak —
+   `{id: clm-<slug>, subject, predicate, value, unit?, as_of, source, retrieved_at,
+   status: verified|single_source|unverified}`. status=verified needs 2+ independent
+   sources or one primary source; single wire story = single_source; anything else =
+   unverified. These records feed `tools/claims_gate.py`, which blocks any script
+   number lacking a receipt.
+
 Rules: every number carries source name + date. If sources conflict, show both. Do not
 interpolate or estimate. Accuracy over completeness. Return the pack as markdown.

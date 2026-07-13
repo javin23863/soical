@@ -24,10 +24,18 @@ Repo: `C:\Users\MSI\Desktop\OpenMontage-Skill`. Engine python:
 ## Steps
 
 1. **Fact pass** — spawn the `fact-pack` agent (see `.claude/agents/fact-pack.md`) with
-   the day's story. Save result as `productions/video-NN-<slug>/FACTS-<date>.md`.
+   the day's story. Save result as `productions/video-NN-<slug>/FACTS-<date>.md`, and
+   mint the claim store `claims.yaml` from it (schema: id, subject, predicate, value,
+   unit?, as_of, source, retrieved_at, status). Claims are minted HERE ONLY.
 2. **Script** — write `productions/video-NN-<slug>/vo.txt`: `## NN visual-slug` sections,
    numbers written longhand for TTS, cold open ≤15s, 12-14 sections for 8+ min.
-   Model on `productions/video-02-hormuz/vo.txt`.
+   Model on `productions/video-02-hormuz/vo.txt`. Write `vo-receipts.yaml` alongside:
+   every number-bearing fragment quotes → claim id (single_source claims need
+   `attributed: true` and on-air attribution).
+2b. **ONTOLOGY GATE (blocking)** — `& $py tools\claims_gate.py productions\<vid>`.
+   BLOCK = fix script or claims until PASS; never proceed on BLOCK. The gate verdict
+   (`build/claims-gate.json`) is the receipt that everything the machine says traces
+   to a sourced, dated claim.
 3. **VO** — `& $py tools\produce.py productions\<vid> --stage vo --voice bm_george`
 4. **God's Eye b-roll** — write `tools/visuals/shots-<slug>.json` (schema + cinematography
    rules in vault [[God's Eye Footage Engine]]; also comments in godseye_capture.mjs).

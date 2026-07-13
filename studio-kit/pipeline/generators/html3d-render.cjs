@@ -61,12 +61,16 @@ server.on('error', (e) => { console.error('[html3d-render] server error:', e.mes
  await new Promise(r => server.listen(0, '127.0.0.1', r));
  const port = server.address().port;
  const fileUrl = `http://127.0.0.1:${port}/${encodeURIComponent(path.basename(htmlPath))}`;
+ // MG3D_GPU=1: use hardware WebGL (RTX) — ~10-50x faster on raymarched comps than
+ // the deterministic-but-CPU swiftshader default. Same seek-capture determinism either way.
+ const glArgs = process.env.MG3D_GPU === '1'
+ ? ['--use-gl=angle', '--ignore-gpu-blocklist', '--enable-webgl']
+ : ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--enable-webgl'];
  const browser = await puppeteer.launch({
  headless: true,
  args: [
  '--no-sandbox', '--disable-setuid-sandbox',
- '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader',
- '--ignore-gpu-blocklist', '--enable-webgl', `--window-size=${W},${H}`,
+ ...glArgs, `--window-size=${W},${H}`,
  '--hide-scrollbars', '--force-color-profile=srgb',
  ],
  });
