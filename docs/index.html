@@ -238,9 +238,21 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem}
     price action — code them honestly, and publish whatever the gauntlet says. No winners promised.
     Receipts guaranteed.</p>
   <div class="ctas">
-    <a class="btn primary" href="https://www.youtube.com/@Thetradercockpit" rel="noopener">▶ Watch the executions</a>
-    <a class="btn" href="mailto:joshuajacob2386@gmail.com?subject=TraderCockpit%20waitlist" rel="noopener">Join the waitlist</a>
+    <!-- TODO(operator): replace STORE + VARIANT with the real Lemon Squeezy checkout
+         (LS dashboard → Products → Share/Checkout link). Keep ?embed=1 so lemon.js
+         opens it as an overlay. Until then this points at a dead placeholder. -->
+    <a class="btn primary lemonsqueezy-button" href="https://STORE.lemonsqueezy.com/buy/VARIANT?embed=1&media=0" rel="noopener">◈ Get early access</a>
+    <a class="btn" href="https://www.youtube.com/@Thetradercockpit" rel="noopener">▶ Watch the executions</a>
   </div>
+  <p class="sub" style="margin-top:1rem">
+    <!-- TODO(operator): set the real price once the LS product is live -->
+    Subscription · <strong>$PRICE/mo</strong> · cancel anytime.
+    Runs on <strong>your</strong> machine against <strong>your</strong> IBKR account — your data and keys never leave your desk.
+  </p>
+  <p class="sub" style="font-size:.8rem;opacity:.7">
+    Requires Windows 10+ · an Interactive Brokers account with IB Gateway (paper) · paper-only research tool, not investment advice.
+    No brokerage account yet? <a href="mailto:joshuajacob2386@gmail.com?subject=TraderCockpit%20waitlist" rel="noopener">join the waitlist</a>.
+  </p>
 </section>
 
 <footer>
@@ -388,5 +400,9 @@ document.getElementById("again").addEventListener("click",()=>{
 });
 drawMC(mulberry32(1),0,.02);
 </script>
+<!-- Lemon Squeezy overlay checkout: intercepts the .lemonsqueezy-button link above
+     and opens the hosted checkout in a modal. LS is the merchant of record (handles
+     tax + subscriptions + license-key issuance); this page stays fully static. -->
+<script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 </body>
 </html>
