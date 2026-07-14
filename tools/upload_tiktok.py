@@ -61,7 +61,7 @@ def upload(video_path, title, user: str = DEFAULT_USER, ai_label: bool = True) -
     if not d.exists():
         raise FileNotFoundError(
             f"TikTok uploader not found at {d}. Clone it and set TIKTOK_UPLOADER_DIR, "
-            "or see SEO-SOCIAL.md for setup."
+            "or see ops/SEO-SOCIAL.md for setup."
         )
     if not cookie_present(user):
         raise RuntimeError(

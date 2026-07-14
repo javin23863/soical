@@ -1,6 +1,6 @@
 # Narrator = the machine itself (JARVIS-style system voice, kokoro bm_george).
 # Each "## NN visual-slug" block = one VO section = one visual in visuals/NN-*.mp4|png
-# Verified numbers only — see SCRIPT-VIDEO-01.md honesty checklist.
+# Verified numbers only — see archive/SCRIPT-VIDEO-01.md honesty checklist.
 
 ## 01 odometer-coldopen
 Good evening. This week, I bred three hundred forty nine thousand, nine hundred and fourteen trading strategies. I admitted one hundred eleven thousand, nine hundred sixty six of them to my starting line. And the number I have validated? Zero. That is not a failure. I am simply not permitted to say that word until a strategy survives my twelve phases of statistical torture. But before any of that, my operator gave me one instruction that I refused to carry out. He asked me to code ICT. And I could not — because no one can.

@@ -25,7 +25,7 @@ PAD_S = 1.0
 BGS = {"01": "net", "02": "corridor", "03": "bulb", "04": "corridor", "05": "bulb", "06": "net",
        "08": "net", "09": "corridor", "10": "bulb", "11": "net", "12": "corridor"}
 
-# All numbers verified — SCRIPT-VIDEO-01.md honesty checklist applies here too.
+# All numbers verified — archive/SCRIPT-VIDEO-01.md honesty checklist applies here too.
 CARDS = {
  "01": {"kicker": "this week, inside one machine", "title": "",
         "counter": {"from": 349914, "to": 0, "label": "strategies validated so far — on purpose"},

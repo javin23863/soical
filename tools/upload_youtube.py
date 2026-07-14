@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Upload a video to YouTube via the Data API v3.
 
-One-time setup: put OAuth client_secret.json next to this script (see COMPLEMENTS.md).
+One-time setup: put OAuth client_secret.json next to this script (see ops/COMPLEMENTS.md).
 First run opens a browser for consent; token cached in token.json.
 
 Usage:
@@ -33,7 +33,7 @@ def get_service():
         else:
             secret = HERE / "client_secret.json"
             if not secret.exists():
-                sys.exit(f"Missing {secret} — see COMPLEMENTS.md for the 5-minute Google Cloud setup.")
+                sys.exit(f"Missing {secret} — see ops/COMPLEMENTS.md for the 5-minute Google Cloud setup.")
             creds = InstalledAppFlow.from_client_secrets_file(secret, SCOPES).run_local_server(port=0)
         token.write_text(creds.to_json())
     return build("youtube", "v3", credentials=creds)

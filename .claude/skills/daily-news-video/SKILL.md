@@ -171,7 +171,7 @@ Repo: `C:\Users\MSI\Desktop\OpenMontage-Skill`. Engine python:
    for API-posted media, then repost the corrected file. (IG bio/profile edits have NO API —
    manual only.)
 7. **Publish gate** — write title/description/tags into `SCRIPT-VIDEO-NN.md`
-   (patterns in SEO-CHANNEL.md; chapters computed from sections.json durations + 0.45s gaps),
+   (patterns in ops/SEO-CHANNEL.md; chapters computed from sections.json durations + 0.45s gaps),
    then STOP and ask operator to review **master-clean.mp4** (master.mp4 = burned captions,
    never ship). Render the thumbnail FIRST (see Standing rules → package before produce).
    On operator go: `& $py tools\publish.py <master-clean> --title "..." --description "$DESC"

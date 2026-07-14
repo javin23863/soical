@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Publish one rendered video to YouTube + Instagram Reels + Facebook Reels.
 
-Reads credentials from OpenMontage/.env (see SETUP-CREDS.md):
+Reads credentials from OpenMontage/.env (see ops/SETUP-CREDS.md):
   YouTube:   client_secret.json next to this script (OAuth on first run)
   Meta:      META_PAGE_ID, META_IG_USER_ID, META_PAGE_TOKEN
   B2 (IG only — Meta ingests Reels from a public URL):
@@ -164,7 +164,7 @@ def main():
             "tiktok": cookie_present(),
         }
         for plat in args.platforms:
-            print(f"{plat}: {'ready' if checks[plat] else 'MISSING CREDS — see SETUP-CREDS.md'}")
+            print(f"{plat}: {'ready' if checks[plat] else 'MISSING CREDS — see ops/SETUP-CREDS.md'}")
         sys.exit(0 if all(checks[p] for p in args.platforms) else 1)
 
     results = {}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Wire the real Lemon Squeezy checkout into everything that references it.
 
-Run ONCE after the LS store + product exist (see SETUP-LEMONSQUEEZY.md):
+Run ONCE after the LS store + product exist (see ops/SETUP-LEMONSQUEEZY.md):
 
     python tools/wire_checkout.py https://tradercockpit.lemonsqueezy.com/buy/<uuid>
 

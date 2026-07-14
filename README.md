@@ -1,29 +1,87 @@
-# OpenMontage-Skill — universal AI video production hub
+# TraderCockpit
 
-One skill, any LLM runtime: turn a natural-language brief into finished YouTube videos, Shorts, Instagram Reels, and TikToks — free-first (archive/stock footage, local TTS, local GPU generation), paid APIs only as opt-in.
+Two things live in this repo, and they feed each other:
 
-Engine: [calesthio/OpenMontage](https://github.com/calesthio/OpenMontage) (AGPLv3) — cloned into `OpenMontage/` (gitignored; re-clone with the setup below).
+1. **The channel** — an automated daily finance-news video operation. A market story goes in;
+   a 10-12 minute YouTube video, five verticals (YT Shorts / IG Reels / FB Reels / TikTok),
+   a thumbnail, and SEO copy come out. Trust-first: the product is never pitched on air.
+2. **The product** — ESQ Cockpit, sold from the landing page in `docs/` (GitHub Pages) through
+   Lemon Squeezy. The channel is top-of-funnel; the landing page converts. The only link between
+   them is a URL in the video description.
 
-```
-openmontage/SKILL.md    the universal skill (agentskills.io format — works in Claude Code & Hermes Agent)
-RUNTIMES/               per-runtime install + capability notes (Claude Code, Codex app, Hermes Agent)
-COMPLEMENTS.md          free repos closing the gaps: YouTube/IG/TikTok publishing, Kokoro TTS, faster-whisper, MusicGen
-tools/upload_youtube.py YouTube Data API v3 uploader (free)
-```
+Channel: [@Thetradercockpit](https://youtube.com/@Thetradercockpit) · Landing: <https://javin23863.github.io/soical/>
 
-## Setup (new machine)
+---
+
+## Read these first (they govern everything)
+
+| Doc | What it decides |
+|---|---|
+| **`MARKET-ANALYSIS-DOCTRINE.md`** | *How we analyze a market.* Fixed watchlist, shock taxonomy, transmission map, cross-asset confirmation, scenario protocol, and the 7-question brainstorm that every script is written from. Makes two different writers produce the same analysis. |
+| **`BRAND.md`** | *How we look and sound.* Red `#FF1744` on black, monospace, gauge mark; thumbnail rules; profile copy. |
+| **`GROWTH-AUTHORITY-PLAYBOOK.md`** | *How each platform is played.* Per-platform doctrine sourced to the recognized authority (Galloway / Mosseri / TikTok Creator Portal / Graham Stephan). |
+
+The skills below treat all three as mandatory inputs. Change the doctrine, and every future video changes with it.
+
+## Making a video
 
 ```powershell
-git clone https://github.com/calesthio/OpenMontage.git
-cd OpenMontage
-python -m venv .venv
-.venv\Scripts\pip install -r requirements.txt
-.venv\Scripts\pip install -r requirements-gpu.txt diffusers transformers accelerate   # GPU box only
-.venv\Scripts\pip install piper-tts kokoro soundfile faster-whisper google-api-python-client google-auth-oauthlib
-cd remotion-composer && npm install && cd ..
-copy .env.example .env    # set VIDEO_GEN_LOCAL_ENABLED=true, VIDEO_GEN_LOCAL_MODEL per your VRAM
+# Claude Code: the skill drives the whole pipeline
+/daily-news-video            # or: "make today's video about <story>"
 ```
 
-Then install the skill for your runtime — see `RUNTIMES/`.
+It runs: `market-analysis` (→ `analysis-brief.md`) → fact pack → script + `claims.yaml` →
+**claims gate (blocking)** → TradingView chart capture → God's Eye b-roll → cloned VO →
+captions → assemble → shorts → thumbnail → publish. Detail:
+[`.claude/skills/daily-news-video/SKILL.md`](.claude/skills/daily-news-video/SKILL.md).
 
-GPU sizing: 8 GB VRAM → `wan2.1-1.3b` only. 16 GB+ → `wan2.1-14b` / `ltx2-local`. 24 GB+ → `hunyuan-1.5`.
+Underneath, the stages are `tools/produce.py <prod> --stage vo|captions|assemble|shorts`
+(engine venv: `OpenMontage\.venv\Scripts\python.exe`).
+
+**The verticals recipe of record is `tools/handoff/recut_shorts.cjs`**, not `produce.py --stage shorts`
+— the latter center-crops and cuts the price axis off the charts. See handoff scars 10-15.
+
+**Quality floor:** `productions/video-02-hormuz-v4/` is the reference build (script, claims,
+receipts, charts). Anything below it is a regression.
+
+## Publishing
+
+```powershell
+& $py tools\publish.py <video.mp4> --title "..." --caption "..." `
+    --platforms youtube instagram facebook tiktok --thumbnail <prod>\thumb.png
+```
+
+Public uploads are operator-gated. Credentials: [`ops/SETUP-CREDS.md`](ops/SETUP-CREDS.md).
+TikTok's uploader library is broken against current Chrome; the working path is CDP
+(`tools/handoff/tiktok_post_cdp.cjs` — see the handoff).
+
+## Commerce
+
+The landing page (`docs/index.html`) is the live storefront, served by GitHub Pages. Checkout is
+Lemon Squeezy (merchant of record — no payment server of ours). Wiring:
+[`ops/SETUP-LEMONSQUEEZY.md`](ops/SETUP-LEMONSQUEEZY.md), applied by `tools/wire_checkout.py`.
+Keep the funnel honest: no pitch in the VO, link in the description only.
+
+## Layout
+
+```
+BRAND.md, GROWTH-AUTHORITY-PLAYBOOK.md, MARKET-ANALYSIS-DOCTRINE.md   the doctrine (root = first-class)
+.claude/skills/     daily-news-video (pipeline) · market-analysis (the brainstorm) · godseye-footage (b-roll)
+tools/              produce.py, publish.py, claims_gate.py, visuals/ (charts, news shots, brand, thumbnails)
+tools/handoff/      the scripts that recovered/replaced live posts — CDP drivers, recut, platform replace
+productions/        one dir per video: vo.txt, claims.yaml, receipts, charts, shorts  (v4 = the baseline)
+docs/               the landing page (GitHub Pages) — the commercial surface
+ops/                setup + SEO runbooks (creds, Lemon Squeezy, Meta/YouTube/social SEO, studio-kit wiring)
+handoffs/           dated session handoffs — read the newest before you touch anything live
+studio-kit/         extracted ai-video-studio-kit (clipper, generators)
+archive/            superseded: the pre-pivot strategy, video-01, the universal-skill runtimes, postiz
+OpenMontage/        the engine + its venv (gitignored — clone separately)
+```
+
+Knowledge base (outside this repo): `C:\Users\MSI\Desktop\TraderCockpit-Vault` — read `_meta/hot.md`.
+
+## State
+
+Current live URLs, what's been replaced, and the hard-won scars (aspect-ratio traps, TikTok
+caption prefill, YouTube scopes, Meta tokens) live in **[`handoffs/2026-07-14.md`](handoffs/2026-07-14.md)**.
+Read it before touching anything already published.

@@ -110,7 +110,7 @@ def build_page(refresh=0):
             ("instagram", "needs META_IG_USER_ID + META_PAGE_TOKEN (run meta_setup.py)"),
             ("facebook", "needs META_PAGE_ID + META_PAGE_TOKEN (run meta_setup.py)"),
         ]) + '<tr><td>tiktok</td><td><span class="badge warn">MANUAL</span>' \
-             '</td><td>no free self-owned API — Upload-Post / Postiz, see COMPLEMENTS.md</td></tr>'
+             '</td><td>no free self-owned API — Upload-Post / Postiz, see ops/COMPLEMENTS.md</td></tr>'
 
     vid_rows = "".join(
         f'<tr><td><a href="file:///{html.escape(str(f).replace(chr(92), "/"))}">{html.escape(f.name)}</a></td>'
@@ -166,10 +166,10 @@ def build_page(refresh=0):
 
 <h2>Docs</h2>
 <p>
-<a href="file:///{HUB.as_posix()}/SETUP-CREDS.md">SETUP-CREDS.md</a> &middot;
-<a href="file:///{HUB.as_posix()}/COMPLEMENTS.md">COMPLEMENTS.md</a> &middot;
+<a href="file:///{HUB.as_posix()}/ops/SETUP-CREDS.md">ops/SETUP-CREDS.md</a> &middot;
+<a href="file:///{HUB.as_posix()}/ops/COMPLEMENTS.md">ops/COMPLEMENTS.md</a> &middot;
 <a href="file:///{HUB.as_posix()}/openmontage/SKILL.md">SKILL.md</a> &middot;
-<a href="file:///{HUB.as_posix()}/RUNTIMES">RUNTIMES/</a> &middot;
+<a href="file:///{HUB.as_posix()}/archive/RUNTIMES">archive/RUNTIMES/</a> &middot;
 <a href="file:///{ENGINE.as_posix()}/AGENT_GUIDE.md">AGENT_GUIDE.md</a>
 </p>
 </body></html>"""
