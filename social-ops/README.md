@@ -35,6 +35,22 @@ cases and must be recorded in the batch notes and metrics log.
 unavailable fields blank. Keep source campaign values to `youtube`, `instagram`, `facebook`, `tiktok`, or
 `direct`. Establish a 14-day baseline before setting growth targets.
 
+## Growth experiments
+
+The canonical experiment ledger is `growth-experiments.v1.json`. Sunday review refreshes platform
+analytics first, validates the ledger, joins reviewed batch/item rows from `metrics.csv`, and displays
+the advisory verdict in the local dashboard:
+
+```powershell
+py tools\growth_experiments.py validate
+py tools\growth_experiments.py report --json
+py tools\dashboard.py --no-open
+```
+
+Record an operator decision only after reviewing the evidence. Reuse a winning component under a new
+experiment ID; publication still requires the exact-hash approval gate. The growth module never writes
+decisions, publishes content, activates ads, or spends money.
+
 ## External service gate
 
 The landing page is pre-wired for Buttondown double opt-in and one Plausible tracker through

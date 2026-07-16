@@ -16,6 +16,11 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+try:
+    from .growth_experiments import load_growth_summary
+except ImportError:  # direct script execution
+    from growth_experiments import load_growth_summary
+
 HUB = Path(__file__).resolve().parent.parent
 ENGINE = HUB / "OpenMontage"
 PY = ENGINE / ".venv" / "Scripts" / "python.exe"
@@ -93,6 +98,52 @@ def badge(ok, yes="READY", no="MISSING"):
     return f'<span class="badge {cls}">{txt}</span>'
 
 
+def load_growth():
+    try:
+        return load_growth_summary()
+    except ValueError as error:
+        return {"valid": False, "error": str(error)}
+
+
+def render_growth(summary):
+    if not summary.get("valid"):
+        error = html.escape(str(summary.get("error", "Growth manifest is unavailable.")))
+        return f'''<section class="growth">
+<div class="section-head"><div><h2>Growth experiments</h2><p class="muted">File-backed experiment and learning contract</p></div><span class="badge bad">BLOCKED</span></div>
+<div class="empty"><strong>Growth contract invalid:</strong> {error}<br><code>py tools\\growth_experiments.py validate</code></div>
+</section>'''
+
+    library_rows = "".join(
+        f'<tr><td>{html.escape(category)}</td><td>{counts.get("active", 0)}</td>'
+        f'<td>{counts.get("hypothesis", 0)}</td><td>{counts.get("blocked", 0)}</td></tr>'
+        for category, counts in summary.get("libraryCounts", {}).items()
+    )
+    experiment_rows = []
+    for experiment in summary.get("experiments", []):
+        assembly = " / ".join(str(value) for value in experiment.get("assembly", {}).values())
+        median = experiment.get("primaryMedian")
+        metric_value = "—" if median is None else f"{median:.2f}"
+        advisory = experiment.get("advisory", {})
+        advisory_verdict = str(advisory.get("verdict", "insufficient_evidence"))
+        verdict_class = "ok" if advisory_verdict == "reuse" else "bad" if advisory_verdict == "kill" else "warn"
+        decision = experiment.get("decision", {})
+        blockers = experiment.get("blockers", [])
+        experiment_rows.append(
+            f'<tr><td><strong>{html.escape(str(experiment.get("id", "")))}</strong><br>'
+            f'<span class="muted">{html.escape(str(experiment.get("surface", "")))} · {html.escape(str(experiment.get("state", "")))}</span></td>'
+            f'<td>{html.escape(str(experiment.get("hypothesis", "")))}<br><span class="muted">{html.escape(assembly)}</span></td>'
+            f'<td>{experiment.get("observationCount", 0)}<br><span class="muted">{html.escape(str(experiment.get("primaryMetric", "")))}: {metric_value}</span></td>'
+            f'<td><span class="badge {verdict_class}">{html.escape(advisory_verdict.upper())}</span><br><span class="muted">{html.escape(str(advisory.get("reason", "")))}</span></td>'
+            f'<td>{html.escape(str(decision.get("verdict", "pending")))}<br><span class="muted">{html.escape("; ".join(str(item) for item in blockers) or "no blockers")}</span></td></tr>'
+        )
+    experiment_table = "".join(experiment_rows) or '<tr><td colspan="5">No experiments declared.</td></tr>'
+    return f'''<section class="growth">
+<div class="section-head"><div><h2>Growth experiments</h2><p class="muted">Updated {html.escape(str(summary.get("updatedAt", "unknown")))} · advisory only</p></div><div><span class="badge ok">VALID</span> <span class="badge ok">PAID DISABLED</span></div></div>
+<h3>Component library</h3><table><tr><th>library</th><th>active</th><th>hypothesis</th><th>blocked</th></tr>{library_rows}</table>
+<h3>Experiment ledger</h3><table><tr><th>experiment</th><th>hypothesis / assembly</th><th>evidence</th><th>advisory</th><th>operator / blockers</th></tr>{experiment_table}</table>
+</section>'''
+
+
 def build_page(refresh=0):
     legs = leg_status()
     pins = env_pins()
@@ -102,6 +153,7 @@ def build_page(refresh=0):
     wan_out = ENGINE / "projects" / "wan_smoke.mp4"
     wan = badge(True, "DONE") if wan_out.exists() else (
         '<span class="badge warn">GENERATING</span>' if wan_running() else badge(False, "NOT RUN"))
+    growth = render_growth(load_growth())
 
     leg_rows = "".join(
         f"<tr><td>{p}</td><td>{badge(legs.get(p, False))}</td><td>{note}</td></tr>"
@@ -133,8 +185,12 @@ def build_page(refresh=0):
  .badge{{padding:.1rem .5rem;border-radius:10px;font-size:.75rem;font-weight:600}}
  .ok{{background:#1e3a29;color:#6fd18b}} .bad{{background:#3a1e1e;color:#e07a7a}} .warn{{background:#3a331e;color:#e0c26f}}
  .muted{{color:#7a8089;font-size:.85rem}}
+ section{{margin:1.25rem 0 2.25rem}} .section-head{{display:flex;align-items:end;justify-content:space-between;gap:1rem}}
+ .section-head h2{{margin-bottom:.15rem}} .section-head p{{margin:0}} .empty{{padding:1rem;background:#1e2127;border-radius:6px}}
 </style></head><body>
 <h1>OpenMontage Pipeline &mdash; <span class="muted">generated {datetime.now():%Y-%m-%d %H:%M}</span></h1>
+
+{growth}
 
 <h2>Publish legs</h2>
 <table><tr><th>platform</th><th>status</th><th>notes</th></tr>{leg_rows}</table>
@@ -160,6 +216,8 @@ def build_page(refresh=0):
 <tr><td>publish</td><td><code>python tools\\publish.py video.mp4 --title "..." --caption "..." --platforms youtube</code></td></tr>
 <tr><td>dry-run creds check</td><td><code>python tools\\publish.py x --title x --dry-run</code></td></tr>
 <tr><td>Meta creds fill</td><td><code>python tools\\meta_setup.py --app-id .. --app-secret .. --user-token ..</code></td></tr>
+<tr><td>validate growth experiments</td><td><code>py tools\\growth_experiments.py validate</code></td></tr>
+<tr><td>report growth experiments</td><td><code>py tools\\growth_experiments.py report --json</code></td></tr>
 <tr><td>production dashboard</td><td><code>cd OpenMontage &amp;&amp; python -m backlot open</code> (per-video board)</td></tr>
 <tr><td>refresh this page</td><td>re-run <code>dashboard.bat</code>, or <code>dashboard-live.bat</code> for auto-refresh every 30s</td></tr>
 </table>
