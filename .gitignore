@@ -54,6 +54,11 @@ productions/*/visuals/**/*.mp4
 # sqlite side files leaked from readonly Manager snapshots
 .manager-*.db-shm
 .manager-*.db-wal
+# local HUD skill inventory and usage fingerprints
+social-ops/skill-catalog.json
+social-ops/.skill-usage-cache.json
+# knowledge graph outputs — regenerable via HUD "Rebuild knowledge graph" (graphify)
+graphify-out/
 # qa/ + qa-sol/ = frame-audit screenshots, regenerable like verify/
 productions/*/qa/
 productions/*/qa-sol/
