@@ -46,20 +46,37 @@ by live read, not assumed.
 
 Screenshots: `scratchpad/social-shots/{instagram,tiktok,facebook}.png` (session-local).
 
-## Remaining nits — brand-decision or login-gated, NOT rot (operator greenlight to fix)
+## Nits — ALL RESOLVED 2026-07-21 (operator "fix all"; every write verified by live read-back)
 
-1. **TikTok display name is lowercase `trader cockpit`** — canonical is `TraderCockpit`. A profile-name
-   edit with a 7-day rename cooldown; left for operator to pick the exact name (plain `TraderCockpit`
-   vs `TraderCockpit · Market News`) before burning the cooldown.
-2. **Facebook page name `Tradercockpit`** (should be `TraderCockpit`) — the CDP session is **logged
-   out of Facebook** (Gmail is logged in, FB is not), so no edit without an interactive login.
-3. **Exact disclaimer vs char limits.** IG (150) and TikTok (80) bios use the short `Not advice` /
-   `News & education, not advice` rather than the full mandatory string. The 2026-07-20 sheet showed a
-   146-char IG variant that fits the full disclaimer; TikTok's 80 chars cannot fit both a value prop
-   and the full string. Operator call on which to prioritise.
-4. **Brand-voice fork (flagged, not resolved).** YouTube now carries the gauntlet/honest-research
-   identity + "You are the market"; IG/TikTok/FB carry the shorter market-news voice. Compatible, but
-   if the operator wants one voice everywhere that is a deliberate brand call.
+1. **TikTok** — name `trader cockpit` → **`TraderCockpit`**, bio → **`You are the market. Not
+   financial advice; no performance promised.`** (66/80). Verified live. Scar repeated: the run that
+   "failed" (immediate read-back showed old values) had actually saved — TikTok read-after-write lag,
+   same as YouTube. Native-React-setter alone does NOT commit on TikTok; a real save needs the field
+   values in React state (keystroke or Input.insertText path).
+2. **Facebook** — operator logged the CDP Chrome into FB. Bio → **"You are the market. Oil, equities,
+   rates, and the geopolitics moving them — read plainly, mapped to your portfolio. Research tooling,
+   not financial advice. No performance is promised or implied."** (verified live). **Username set:
+   `facebook.com/tradercockpit`** (was never set; operator chose it 2026-07-14, applied now). **Name
+   `Tradercockpit` → `TraderCockpit` submitted** — FB requires the account password (operator typed
+   it) and up to 3 days review + 60-day lock; pending FB's review, not ours.
+3. **Instagram** — session restored after the debug-Chrome relaunch (no SSO needed). Bio →
+   **"You are the market. / Daily market news on YouTube ↓ / Research tooling, not financial advice.
+   No performance is promised or implied."** (129/150, full mandatory disclaimer now fits). Name was
+   already `TraderCockpit`; link stays YouTube. Verified live. Followers 14 → 27 at read time.
+4. **Voice unified.** All four surfaces now carry "You are the market." + the full mandatory
+   disclaimer (TikTok carries the closest 80-char honest equivalent).
+
+### CDP driving lessons (cost ~6 iterations, keep)
+- **FB settings content lives in an IFRAME** — top-document queries see nothing; search `p.frames()`.
+- **Per-keystroke `elementHandle.type()` stalls CDP on slow Meta pages** (`Runtime.callFunctionOn
+  timed out`); use ONE `keyboard.sendCharacter(text)` (Input.insertText) after focus+select.
+- **A one-shot detector races the SPA render** — poll up to ~24s for content, never single-check.
+- **FB save buttons are sometimes `a`/leaf-div, not `button`** — match leaf text, click closest
+  actionable ancestor.
+- **Closing all tabs in the debug Chrome EXITS it** — sessions survive on disk; relaunch with the
+  same `--user-data-dir=C:\Users\MSI\.chrome-cdp --remote-debugging-port=9333`.
+- **Page-admin context is per-click-path**, not per-URL: direct `settings/?tab=profile` lands in
+  PERSONAL settings; page rail → Page setup → Name keeps PAGE context.
 
 ## Scar reinforced
 `social-surface-audit` rule zero held again: cache said "profile SEO already good / all pages fixed";
