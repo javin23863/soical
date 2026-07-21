@@ -73,7 +73,7 @@ def tiktok_readiness():
 
     official = probe_auth()
     if official.get("status") == "ready":
-        return official
+        return {**official, "ready": True}
 
     import urllib.request
 
@@ -81,13 +81,13 @@ def tiktok_readiness():
         with urllib.request.urlopen(TIKTOK_CDP_URL, timeout=3):
             pass
     except Exception as error:  # noqa: BLE001 - any failure means the lane is unusable
-        return {"status": "blocked", "lane": "cdp",
+        return {"status": "blocked", "ready": False, "lane": "cdp",
                 "detail": f"official API unauthorized and no debug Chrome on 9333 ({error}). "
                           "Start the logged-in debug profile to enable the CDP lane."}
     if not TIKTOK_CDP_SCRIPT.exists():
-        return {"status": "blocked", "lane": "cdp",
+        return {"status": "blocked", "ready": False, "lane": "cdp",
                 "detail": f"missing {TIKTOK_CDP_SCRIPT}"}
-    return {"status": "ready", "lane": "cdp",
+    return {"status": "ready", "ready": True, "lane": "cdp",
             "detail": "publishing via operator's logged-in TikTok Studio session on port 9333"}
 
 

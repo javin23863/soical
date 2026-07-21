@@ -62,16 +62,25 @@ doctrine), then re-run with `--upload`.
    publish_log receipts). Per-channel caption contract is encoded in the runner:
    YouTube = caption-free `.vertical.clean.mp4` + native captions; IG/FB/TikTok = burned.
 
-## Platform status (check before promising uploads)
+## Platform status — PROBE, never quote memory
 
-| Platform | Path | Status |
-|----------|------|--------|
-| YouTube Shorts | publish.py, native captions | LIVE — the default `--platform` |
-| Instagram/Facebook | publish.py Graph API | BLOCKED — Meta app platform-block (operator appeal at developers.facebook.com) |
-| TikTok | CDP on debug Chrome / vendored uploader | BLOCKED — cookie absent; operator logs in once on the `.chrome-cdp` profile |
+**`publish.py --dry-run` is the ONLY valid source for platform auth status.** It costs 10
+seconds. Quoting a remembered blocker cost a full stale-claims cycle on 2026-07-21: memory
+said "Meta app-blocked, TikTok cookie absent" while the live probe said all four valid —
+TikTok had been logged in the whole time and the Meta block had cleared. Recalled state
+reflects when it was written; the probe reflects now.
 
-For blocked platforms: stage the batch items (`--platform instagram` etc.) and report the
-blocker honestly — never claim posted, never bypass the auth probe.
+All four lanes proven live 2026-07-21 (one command each,
+`cut_derivatives.py <prod> --platform <ch> --upload`):
+| Platform | Path | Notes |
+|----------|------|-------|
+| youtube | native captions + clean twin | default platform |
+| instagram | Graph API via B2 URL staging | burned captions |
+| facebook | Graph API binary upload | burned captions |
+| tiktok | CDP on debug Chrome :9333 (`.chrome-cdp` profile) | burned captions; new posts sit in "Content under review" with privacy locked to Only-me — publish.py's read-back reports "uploaded-unverified" then, which is the review hold, NOT a failure. Verify in TikTok Studio (posts count + top row) before ANY retry; retrying double-posts. |
+
+If a probe reports blocked: stage the batch items and report the blocker honestly — never
+claim posted, never bypass the auth probe.
 
 ## Scars (why the rules above exist)
 

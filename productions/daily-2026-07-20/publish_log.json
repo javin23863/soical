@@ -662,6 +662,116 @@
         }
       },
       "error": null
+    },
+    {
+      "batchId": "daily-2026-07-20-verticals",
+      "itemId": "tiktok-hook-bounce-failed",
+      "platform": "tiktok",
+      "status": "uploaded-unverified",
+      "platformId": null,
+      "url": null,
+      "timestamp": "2026-07-21T03:20:15.911498Z",
+      "platformResponse": {
+        "lane": "cdp",
+        "log": "\n--- [1/1] clip-001-hook-bounce-failed.vertical.mp4\n  uploaded, processing...\n  clear attempt 1: empty\n  caption ok: 299 chars\n  Post clicked: true\n  url now: https://www.tiktok.com/tiktokstudio/upload\n\nDONE tiktok batch\n",
+        "note": "CDP lane has no API read-back; verify in TikTok Studio. New-account posts sit in 'Only me / under review' until cleared."
+      },
+      "error": null
+    },
+    {
+      "batchId": "daily-2026-07-20-verticals",
+      "itemId": "tiktok-spx-19-points",
+      "platform": "tiktok",
+      "status": "uploaded-unverified",
+      "platformId": null,
+      "url": null,
+      "timestamp": "2026-07-21T03:21:57.292541Z",
+      "platformResponse": {
+        "lane": "cdp",
+        "log": "\n--- [1/1] clip-002-spx-19-points.vertical.mp4\n  uploaded, processing...\n  clear attempt 1: empty\n  caption ok: 306 chars\n  Post clicked: true\n  url now: https://www.tiktok.com/tiktokstudio/content\n  public receipt: {\"title\":\"The S&P closed nineteen points above its July low at 7,421. Two closes below the 7,504 line, with yields pressing their July high. Levels to watch Tuesday, read off the settled bars. #sp500 #stockmarket #trading #markets #FinTok Research tooling, not financial advice. No performance is promised or implied.\",\"url\":\"https://www.tiktok.com/@trader.cockpit/video/7664816249599315220\",\"state\":\"00:45\\nThe S&P closed nineteen points above its July low at 7,421. Two closes below the 7,504 line, with yields pressing their July high. Levels to watch Tuesday, read off the settled bars. #sp500 #stockmarket #trading #markets #FinTok Research tooling, not financial advice. No performance is promised or implied.\\nContent under review\\nOnly me\\n0\\n0\\n0\"}\n\nDONE tiktok batch\n",
+        "note": "CDP lane has no API read-back; verify in TikTok Studio. New-account posts sit in 'Only me / under review' until cleared."
+      },
+      "error": null
+    },
+    {
+      "batchId": "daily-2026-07-20-verticals",
+      "itemId": "instagram-hook-bounce-failed",
+      "platform": "instagram",
+      "status": "published",
+      "platformId": "18201557836321553",
+      "url": "https://www.instagram.com/reel/DbCi-l3gEro/",
+      "timestamp": "2026-07-21T03:26:54.730574Z",
+      "platformResponse": {
+        "publish": {
+          "id": "18201557836321553"
+        },
+        "readback": {
+          "id": "18201557836321553",
+          "permalink": "https://www.instagram.com/reel/DbCi-l3gEro/"
+        }
+      },
+      "error": null
+    },
+    {
+      "batchId": "daily-2026-07-20-verticals",
+      "itemId": "instagram-spx-19-points",
+      "platform": "instagram",
+      "status": "published",
+      "platformId": "18089349110422532",
+      "url": "https://www.instagram.com/reel/DbCjUtOFfhN/",
+      "timestamp": "2026-07-21T03:30:05.410678Z",
+      "platformResponse": {
+        "publish": {
+          "id": "18089349110422532"
+        },
+        "readback": {
+          "id": "18089349110422532",
+          "permalink": "https://www.instagram.com/reel/DbCjUtOFfhN/"
+        }
+      },
+      "error": null
+    },
+    {
+      "batchId": "daily-2026-07-20-verticals",
+      "itemId": "facebook-hook-bounce-failed",
+      "platform": "facebook",
+      "status": "published",
+      "platformId": "1775769583849554",
+      "url": "/reel/1775769583849554/",
+      "timestamp": "2026-07-21T03:33:51.109188Z",
+      "platformResponse": {
+        "finish": {
+          "success": true,
+          "message": "Video is Processing. To check the status of the video, please follow the instructions listed at https://developers.facebook.com/docs/video-api/guides/reels-publishing#get-the-upload-status.",
+          "post_id": "122108950143392490"
+        },
+        "readback": {
+          "id": "1775769583849554",
+          "permalink_url": "/reel/1775769583849554/"
+        }
+      },
+      "error": null
+    },
+    {
+      "batchId": "daily-2026-07-20-verticals",
+      "itemId": "facebook-spx-19-points",
+      "platform": "facebook",
+      "status": "published",
+      "platformId": "1040506481679854",
+      "url": "/reel/1040506481679854/",
+      "timestamp": "2026-07-21T03:34:12.433364Z",
+      "platformResponse": {
+        "finish": {
+          "success": true,
+          "message": "Video is Processing. To check the status of the video, please follow the instructions listed at https://developers.facebook.com/docs/video-api/guides/reels-publishing#get-the-upload-status.",
+          "post_id": "122108950323392490"
+        },
+        "readback": {
+          "id": "1040506481679854",
+          "permalink_url": "/reel/1040506481679854/"
+        }
+      },
+      "error": null
     }
   ]
 }
