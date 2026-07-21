@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>TraderCockpit — You are the market. Test the strategy before you buy it</title>
-<meta name="description" content="Course sellers and signal rooms get paid by traders, not by the market. Trader Cockpit backtests their rules honestly — out-of-sample, walk-forward, Monte Carlo, real costs — before you risk a dollar. No performance promised.">
+<meta name="description" content="Course sellers and signal rooms get paid by traders, not by the market. Trader Cockpit puts their rules through real robustness testing — out-of-sample, walk-forward, Monte Carlo, real costs — before you risk a dollar. No performance promised.">
 <meta name="keywords" content="trading strategy test, backtest robustness, strategy validation, Monte Carlo, walk-forward analysis">
 <link rel="canonical" href="https://javin23863.github.io/tradercockpit/">
 <meta property="og:type" content="website">
@@ -232,13 +232,13 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
   <h1>You are the <span class="x">market</span>.<br>You're what they're trading.</h1>
   <p class="sub">The courses, the signal rooms, the YouTube systems — they don't get paid by the market.
     They get paid by you. I paid them for 25 years, down every rabbit hole. Trader Cockpit takes the rules
-    they sell and backtests them honestly — out-of-sample, walk-forward, Monte Carlo, spread and commissions
-    included — so you see what survives before you fund it. The app is <b>in build; this page is the preview</b>,
+    they sell and puts them through real robustness testing — not just a backtest: out-of-sample, walk-forward,
+    Monte Carlo, spread and commissions — so you see what survives before you fund it. The app is <b>in build; this page is the preview</b>,
     not a performance claim.</p>
 
   <div id="chamber" class="wrap">
     <div class="chamber-head">
-      <span class="t">THE 12-PHASE TEST // PICK A STRATEGY</span>
+      <span class="t">12-PHASE ROBUSTNESS TEST // PICK A STRATEGY</span>
       <span class="tag">SIMULATED PRODUCT PREVIEW — NOT A LIVE RUN</span>
     </div>
     <div class="apollo-stage">
@@ -250,7 +250,7 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
         <div class="apollo-name" id="apollo-name">ASSISTANT CONCEPT</div>
         <div class="apollo-state" id="apollo-state" aria-live="polite">LISTENING</div>
         <p id="apollo-line" aria-live="polite">Tell Apollo the rules — entry, exit, stop, size — or pick a known strategy. Apollo sets up the test; the pipeline owns the verdict. The voice on your shoulder that says don't — not another signal seller.</p>
-        <div class="receipt">VOICE RUNS LOCAL · CONFIRMS BEFORE THE FULL TEST · CANNOT WAIVE A GATE OR SUBMIT AN ORDER</div>
+        <div class="receipt">VOICE RUNS LOCAL · CONFIRMS BEFORE A FULL ROBUSTNESS RUN · CANNOT WAIVE A GATE OR SUBMIT AN ORDER</div>
         <div class="apollo-actions">
           <button class="voice-preview" id="voice-preview" type="button" aria-pressed="false" aria-describedby="voice-note">Preview push-to-talk</button>
           <span class="voice-note" id="voice-note">visual state only · microphone off</span>
@@ -258,7 +258,7 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
         <dl class="apollo-telemetry" aria-label="Simulated Apollo readiness">
           <div><dt>Rules</dt><dd id="rules-readiness">incomplete</dd></div>
           <div><dt>Data</dt><dd>not connected</dd></div>
-          <div><dt>Battery</dt><dd>preview only</dd></div>
+          <div><dt>Robustness</dt><dd>preview only</dd></div>
           <div><dt>Verdict</dt><dd>locked</dd></div>
         </dl>
       </div>
@@ -314,8 +314,8 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
       <p>A YouTube title isn't a strategy. Entry, exit, stop, position size, market, timeframe — if you can't
       write it down, you can't test it. And neither can they.</p></div>
     <div class="card"><h3>One good backtest proves nothing</h3>
-      <p>Any strategy can be curve-fit to look great on history. Walk-forward, Monte Carlo, out-of-sample,
-      real spread and commissions — that's what separates an edge from a lucky fit.</p></div>
+      <p>Any strategy can be curve-fit to look great on history. Robustness testing — walk-forward, Monte Carlo,
+      out-of-sample, real spread and commissions — is what separates an edge from a lucky fit.</p></div>
     <div class="card"><h3>Signed results, no screenshots</h3>
       <p>Every verdict ships with a signed receipt. No cherry-picked equity curves, no Photoshopped P&amp;L.
       If this page shows a price or a feature, it came from the product itself — not from marketing.</p></div>
@@ -348,7 +348,7 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
     <div class="row"><span>1 · write the video's idea down as real rules</span><span>specify</span></div>
     <div class="row"><span>2 · add filters from the research library — regime, time-of-day, volatility</span><span>compose</span></div>
     <div class="row"><span>3 · preview the signals on a chart</span><span>inspect</span></div>
-    <div class="row hi"><span>4 · run the full 12-phase test</span><span>test</span></div>
+    <div class="row hi"><span>4 · run the full 12-phase robustness test</span><span>test</span></div>
   </div>
 </section>
 
@@ -648,7 +648,7 @@ function runGauntlet(){
     if(i>=PHASES.length){
       drawMC(rng,1,finalSurv>0?.06:.015);
       vh.textContent="DEMO COMPLETE — NO VERDICT";vh.className="vh";
-      vp.textContent=`The demo ended with ${finalSurv} survivor${finalSurv===1?"":"s"} out of 1,024. That number is animation, not evidence about ${sel.n} — a real verdict takes real rules, real data, and the full 12-phase run in the app.`;
+      vp.textContent=`The demo ended with ${finalSurv} survivor${finalSurv===1?"":"s"} out of 1,024. That number is animation, not evidence about ${sel.n} — a real verdict takes real rules, real data, and the full 12-phase robustness test in the app.`;
       receiptStatus.textContent=`${finalSurv} demo survivor${finalSurv===1?"":"s"} · not evidence`;
       setApollo("speaking","Demo complete. No market data touched, no verdict to report.");
       verdict.classList.add("on");running=false;initBtn.disabled=false;
