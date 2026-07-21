@@ -207,15 +207,20 @@ instead of padding or entering an open-ended rerender loop. Do not lower evidenc
 6. Inspect the actual final export at every declared subject-change boundary plus representative
    midpoints. Check symbol, timeframe, price axis, source/date, containment, safe area, audio,
    runtime, and 9:16 SAR. Declarations and contact sheets alone are not proof.
-7. Prepare at most two initial vertical derivatives from the approved thesis. More derivatives are
-   made after the long-form cut is accepted, not before.
+7. Derivatives are a SEPARATE post-approval lane: once the operator approves the long-form
+   (public on YouTube), invoke the **post-approval-derivatives** skill —
+   `tools/cut_derivatives.py <production> [--upload]` cuts ≤2 verticals from the master via
+   `derivatives-plan.json`, gates them (copy gate + visual_qa on the production's own
+   `shorts/` dir), mints the social-batch/v2 items downstream of the operator approval,
+   and publishes through publish.py. Never cut derivatives before long-form approval.
 
    Verticals + visual QA wiring (2026-07-20 incidents): the unattended runner sets
    `CLIP_SKIP_SHORTS=1` (produce.py) so the long-form never blocks on a shorts-lane defect —
    derivatives are cut in the post-acceptance lane where their QA verdict belongs.
-   `visual_qa.gate()` inspects the SHARED `studio-kit/clipper/output/` dir, which accumulates
-   clips across productions — stale clips from an old video WILL block tonight's long-form. Before the render run, park everything in
-   that dir (`mkdir parked-<date> && mv clip-* parked-<date>/`). If verticals breach the bottom
+   `visual_qa.gate()` now defaults to the production's own `shorts/` dir (the shared
+   `studio-kit/clipper/output/` default remains only for legacy productions — stale clips
+   from an old video blocked the 2026-07-20 long-form there).
+   If verticals breach the bottom
    safe zone at y≈1772 (bottom margin ~148px), the burn path skipped the fixed caption style
    (`MarginV=64` in clip.js → bottom ≈1493) — fix the style path before re-cutting; do not
    hand-tune per clip. And every ad-hoc `json.load/dump` on this box needs `encoding='utf-8'`

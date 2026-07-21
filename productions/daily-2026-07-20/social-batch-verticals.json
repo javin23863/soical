@@ -1,0 +1,39 @@
+{
+  "schema": "social-batch/v2",
+  "batchId": "daily-2026-07-20-verticals",
+  "containsSyntheticMedia": true,
+  "items": [
+    {
+      "id": "youtube-hook-bounce-failed",
+      "channel": "youtube",
+      "status": "approved",
+      "asset": "productions/daily-2026-07-20/shorts/clip-001-hook-bounce-failed.vertical.clean.mp4",
+      "claimsGate": "productions/daily-2026-07-20/build/claims-gate.json",
+      "productionApproval": "productions/daily-2026-07-20/production-approval.json",
+      "title": "The S&P Sold Its Bounce in One Bar",
+      "captionMode": "native",
+      "privacy": "public",
+      "publicationAuthorized": true,
+      "reviewedBy": "machine: cut_derivatives downstream of operator-approved long-form https://youtu.be/1ddWI5J4YBA",
+      "reviewedAt": "2026-07-21T03:09:53Z",
+      "copy": "Oil touched ninety-one and gave it back. The S&P sold its bounce to close within three points of the low. The pressure is coming from rates. Full session breakdown on the channel. #stockmarket #sp500 #oil #markets #FinTok\n\nResearch tooling, not financial advice. No performance is promised or implied.",
+      "approvalSha256": "32d2d763fd53a997937bd5c6ad5845871312c9b9135f55d69b50e4005c58dea9"
+    },
+    {
+      "id": "youtube-spx-19-points",
+      "channel": "youtube",
+      "status": "approved",
+      "asset": "productions/daily-2026-07-20/shorts/clip-002-spx-19-points.vertical.clean.mp4",
+      "claimsGate": "productions/daily-2026-07-20/build/claims-gate.json",
+      "productionApproval": "productions/daily-2026-07-20/production-approval.json",
+      "title": "The S&P Is 19 Points From Breaking July",
+      "captionMode": "native",
+      "privacy": "public",
+      "publicationAuthorized": true,
+      "reviewedBy": "machine: cut_derivatives downstream of operator-approved long-form https://youtu.be/1ddWI5J4YBA",
+      "reviewedAt": "2026-07-21T03:09:53Z",
+      "copy": "The S&P closed nineteen points above its July low at 7,421. Two closes below the 7,504 line, with yields pressing their July high. Levels to watch Tuesday, read off the settled bars. #sp500 #stockmarket #trading #markets #FinTok\n\nResearch tooling, not financial advice. No performance is promised or implied.",
+      "approvalSha256": "b0c2b390a87ae7ac0fa1c974d2f230f67f879e06558c2ab0cea5b03a933df358"
+    }
+  ]
+}

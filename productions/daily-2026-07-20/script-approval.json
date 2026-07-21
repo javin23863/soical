@@ -4,15 +4,15 @@
   "script": "productions/daily-2026-07-20/vo.txt",
   "scriptSha256": "593f7dd6a7b1eaf9144be65aeebaf7143c9cdd1e92d16b9f7b032df8d143b66f",
   "reviewedBy": "machine:daily-postclose-runner",
-  "reviewedAt": "2026-07-21T02:22:28Z",
+  "reviewedAt": "2026-07-21T03:01:32Z",
   "approvalKind": "machine",
   "operatorReviewed": false,
   "machineApproval": {
     "runner": "tools/daily_postclose.py",
     "decision": "publish-private",
-    "approvedAt": "2026-07-21T02:22:28Z",
+    "approvedAt": "2026-07-21T03:01:32Z",
     "gates": {
-      "checkedAt": "2026-07-21T02:22:28Z",
+      "checkedAt": "2026-07-21T03:01:32Z",
       "claimsVerdict": "PASS",
       "styleStatus": "PASS",
       "hardFail": [],
@@ -28,8 +28,7 @@
         "style ornamental group of three x2",
         "style slogan repetition x3"
       ],
-      "decision": "publish-private",
-      "allowPublic": false
+      "decision": "publish-private"
     },
     "note": "Unattended post-close approval. No operator read this script before render. Warnings publish private for morning review."
   },

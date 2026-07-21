@@ -509,7 +509,11 @@ def check_clip(burned, clean, srt, zones):
 
 def gate(production, clips_dir=None):
     production = Path(production).resolve()
-    clips_dir = Path(clips_dir or CLIPS_DEFAULT)
+    # Default is the PRODUCTION's own shorts dir, not the shared clipper output: gating a
+    # global dir let video-05's stale clips block daily-2026-07-20's long-form (2026-07-21).
+    # CLIPS_DEFAULT remains only for legacy productions that rendered into the shared dir.
+    default_dir = production / "shorts"
+    clips_dir = Path(clips_dir or (default_dir if default_dir.is_dir() else CLIPS_DEFAULT))
     out_dir = production / "build" / "visual-qa"
     out_dir.mkdir(parents=True, exist_ok=True)
 
