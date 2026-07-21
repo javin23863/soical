@@ -7,8 +7,7 @@
   },
   "verifiedCapabilities": [],
   "platforms": [
-    "Windows desktop",
-    "mobile monitoring via your broker's official MetaTrader 5 app (no native mobile app)"
+    "Windows desktop"
   ],
   "cta": {
     "label": "Join the product waitlist",

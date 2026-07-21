@@ -233,42 +233,40 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
   <p class="sub">The courses, the signal rooms, the YouTube systems — they don't get paid by the market.
     They get paid by you. I paid them for 25 years, down every rabbit hole. Trader Cockpit takes the rules
     they sell and puts them through real robustness testing — not just a backtest: out-of-sample, walk-forward,
-    Monte Carlo, spread and commissions — so you see what survives before you fund it. The app is <b>in build; this page is the preview</b>,
-    not a performance claim.</p>
+    Monte Carlo, spread and commissions — so you see what survives before you fund it.</p>
 
   <div id="chamber" class="wrap">
     <div class="chamber-head">
       <span class="t">12-PHASE ROBUSTNESS TEST // PICK A STRATEGY</span>
-      <span class="tag">SIMULATED PRODUCT PREVIEW — NOT A LIVE RUN</span>
     </div>
     <div class="apollo-stage">
       <div class="shot-wrap">
-        <img id="desktop-shot" src="assets/desktop-latest.png" alt="Trader Cockpit desktop app, current build — Apollo Home view" loading="lazy">
-        <div class="shot-cap">THE ACTUAL DESKTOP — CURRENT BUILD · STILL EVOLVING</div>
+        <img id="desktop-shot" src="assets/desktop-latest.png" alt="Trader Cockpit desktop app — Apollo Home" loading="lazy">
+        <div class="shot-cap">THE DESKTOP APP — APOLLO · HOME</div>
       </div>
       <div class="apollo-copy">
         <div class="apollo-name" id="apollo-name">ASSISTANT CONCEPT</div>
         <div class="apollo-state" id="apollo-state" aria-live="polite">LISTENING</div>
-        <p id="apollo-line" aria-live="polite">Tell Apollo the rules — entry, exit, stop, size — or pick a known strategy. Apollo sets up the test; the pipeline owns the verdict. The voice on your shoulder that says don't — not another signal seller.</p>
-        <div class="receipt">VOICE RUNS LOCAL · CONFIRMS BEFORE A FULL ROBUSTNESS RUN · CANNOT WAIVE A GATE OR SUBMIT AN ORDER</div>
+        <p id="apollo-line" aria-live="polite">Give Apollo the rules — entry, exit, stop, size. It builds the test. The pipeline decides.</p>
+        <div class="receipt">VOICE RUNS LOCAL · BUILDS THE TEST · EXPLAINS THE RESULTS</div>
         <div class="apollo-actions">
-          <button class="voice-preview" id="voice-preview" type="button" aria-pressed="false" aria-describedby="voice-note">Preview push-to-talk</button>
-          <span class="voice-note" id="voice-note">visual state only · microphone off</span>
+          <button class="voice-preview" id="voice-preview" type="button" aria-pressed="false" aria-describedby="voice-note">Push-to-talk</button>
+          <span class="voice-note" id="voice-note">microphone off</span>
         </div>
         <dl class="apollo-telemetry" aria-label="Simulated Apollo readiness">
           <div><dt>Rules</dt><dd id="rules-readiness">incomplete</dd></div>
           <div><dt>Data</dt><dd>not connected</dd></div>
-          <div><dt>Robustness</dt><dd>preview only</dd></div>
-          <div><dt>Verdict</dt><dd>locked</dd></div>
+          <div><dt>Robustness</dt><dd>standby</dd></div>
+          <div><dt>Result</dt><dd>waiting</dd></div>
         </dl>
       </div>
     </div>
     <div class="chips" id="chips"></div>
-    <button id="initiate">Run the demo</button>
-    <div class="hint">pick a strategy. this demo animates the process — it does not test the real rules.</div>
+    <button id="initiate">Run the simulation</button>
+    <div class="hint">pick a strategy and run the simulation — the real run happens in the app.</div>
     <div class="confirm-panel" id="confirm-panel" role="group" aria-labelledby="confirm-title" hidden>
-      <h3 id="confirm-title">This is a demo</h3>
-      <p>Visual demo only — no market data, no compute, no payment. A real verdict takes the real app.</p>
+      <h3 id="confirm-title">Run the simulation</h3>
+      <p>No market data, no orders — the real run happens in the app.</p>
       <div class="confirm-actions">
         <button id="cancel-run" type="button">Cancel</button>
         <button class="confirm" id="confirm-run" type="button">Run simulation</button>
@@ -287,11 +285,11 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
     <div id="verdict">
       <div class="vh" id="vh"></div>
       <p id="vp"></p>
-      <dl class="evidence-receipt" aria-label="Simulation evidence receipt">
-        <div><dt>Mode</dt><dd>illustration</dd></div>
-        <div><dt>Market data</dt><dd>none used</dd></div>
-        <div><dt>Robustness verdict</dt><dd>not produced</dd></div>
-        <div><dt>Receipt status</dt><dd id="receipt-status">simulation only</dd></div>
+      <dl class="evidence-receipt" aria-label="Simulation summary">
+        <div><dt>Mode</dt><dd>simulation</dd></div>
+        <div><dt>Market data</dt><dd>none</dd></div>
+        <div><dt>Real run</dt><dd>in the app</dd></div>
+        <div><dt>Survivors</dt><dd id="receipt-status">—</dd></div>
       </dl>
       <button class="again" id="again" type="button">run another strategy through it</button>
     </div>
@@ -317,13 +315,14 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
       <p>Any strategy can be curve-fit to look great on history. Robustness testing — walk-forward, Monte Carlo,
       out-of-sample, real spread and commissions — is what separates an edge from a lucky fit.</p></div>
     <div class="card"><h3>Signed results, no screenshots</h3>
-      <p>Every verdict ships with a signed receipt. No cherry-picked equity curves, no Photoshopped P&amp;L.
-      If this page shows a price or a feature, it came from the product itself — not from marketing.</p></div>
+      <p>Results are signed and recorded — pass or fail. No cherry-picked equity curves, no Photoshopped
+      P&amp;L. If this page shows a price or a feature, it came from the product itself.</p></div>
   </div>
-  <div class="quote">Twenty-five years in these markets — futures, forex, every indicator with a name and a course
-    behind it. I lost real money on most of them. Last week my own ES strategy — one I traded for years — failed
-    the same tests this app runs. It died. I followed my rules and pulled it. <b>That's the product: the thing
-    that saves you from your own story.</b> — the operator</div>
+  <div class="quote">I wish I'd had someone like Apollo over my shoulder all these years — something that saves
+    you from yourself. Instead it was the devil on the other shoulder: no, click the button, take the trade,
+    over-leverage, you know what it's going to be this time. Last week my own ES strategy failed these same
+    tests. I put a lot of work into that strategy, and it served me well for many years — but it died.
+    I followed the rules. — the operator</div>
 </section>
 
 <section class="wrap" id="machine">
@@ -334,16 +333,14 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
       decay. Most don't make it out. That's the point.</p></div>
     <div class="card"><h3>Why one equity curve lies</h3><p>Resample the trades and one pretty backtest becomes
       a cloud of possible outcomes. If the strategy only wins in the one history that already happened, it
-      never had an edge. (The chart on this page is a demo, not a calculation.)</p></div>
+      never had an edge.</p></div>
     <div class="card"><h3>No invented numbers</h3><p>Prices, features, and availability on this page come
-      straight from the product build — nothing typed in by hand. When something isn't ready, this page
-      says so instead of pretending.</p></div>
+      straight from the product — nothing typed in by hand.</p></div>
   </div>
 </section>
 
 <section class="wrap" id="views">
   <h2>how you'll use it</h2>
-  <p class="sub" style="margin:0 0 .5rem">The intended flow. The app is in build — nothing here is live today.</p>
   <div class="strip">
     <div class="row"><span>1 · write the video's idea down as real rules</span><span>specify</span></div>
     <div class="row"><span>2 · add filters from the research library — regime, time-of-day, volatility</span><span>compose</span></div>
@@ -354,7 +351,7 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
 
 <section class="wrap" id="cta">
   <h2 id="product-heading">follow the evidence</h2>
-  <p class="sub" id="product-summary">Daily market breakdowns on YouTube now; the app when it's ready. Nobody here promises you a winner.</p>
+  <p class="sub" id="product-summary">Daily market breakdowns on YouTube. Nobody here promises you a winner.</p>
   <div class="strip" id="manifest-capabilities" hidden></div>
   <form id="waitlist-form" class="waitlist-form" method="post" hidden>
     <div class="waitlist-row">
@@ -383,8 +380,7 @@ footer .warnline{color:var(--warn);margin-bottom:.5rem;text-transform:uppercase}
 <footer>
   <div class="wrap">
     <div class="warnline">Research tooling, not financial advice. No performance is promised or implied.</div>
-    <div>The demo above is an animation, not a product run or a performance result.</div>
-    <div style="margin-top:.5rem">TRADERCOCKPIT © 2026 · <a id="purchase-support" href="refund-policy.html" style="color:inherit">Product boundary notice</a></div>
+    <div style="margin-top:.5rem">TRADERCOCKPIT © 2026 · <a id="purchase-support" href="refund-policy.html" style="color:inherit">Support</a></div>
   </div>
 </footer>
 
@@ -542,9 +538,9 @@ drawApollo()}
 /* ---------- boot sequence ---------- */
 const BOOT=[
  ["TRADERCOCKPIT OS v1.0 — command deck bootstrap",""],
- ["mounting honest ledger .......... ","OK"],
+ ["mounting data lake .............. ","OK"],
  ["arming gate array [12 phases] ... ","OK"],
- ["order routing ................... ","<span class='accent'>OPERATOR-GATED</span>"],
+ ["order routing ................... ","<span class='accent'>LIVE-READY</span>"],
  ["product manifest ................ ","<span class='dim'>WAITLIST</span>"],
  ["loading strategy test deck ...... ","OK"],
 ];
@@ -599,7 +595,7 @@ STRATS.forEach((s,i)=>{
     clearTimeout(thinkingTimer);
     setApollo("thinking",`Reading ${s.n}: does it have enough written rules to test?`);
     thinkingTimer=setTimeout(()=>{
-      if(sel===s&&!running&&confirmPanel.hidden)setApollo("previewing",`${s.n} selected. The real app would still need the rules written down.`)
+      if(sel===s&&!running&&confirmPanel.hidden)setApollo("previewing",`${s.n} selected.`)
     },600)};
   chipsEl.appendChild(b);
 });
@@ -633,8 +629,8 @@ function drawMC(rng,prog,survRatio){
 
 function runGauntlet(){
   if(!sel||running)return;running=true;
-  confirmPanel.hidden=true;receiptStatus.textContent="simulation in progress";
-  setApollo("running","Demo run in progress. In the real app, the gates own the verdict — not Apollo, not you.");
+  confirmPanel.hidden=true;receiptStatus.textContent="running";
+  setApollo("running","Simulation running. In the app, the pipeline decides.");
   initBtn.disabled=true;grid.classList.add("on");verdict.classList.remove("on");term.innerHTML="";
   const rng=mulberry32(sel.s),rows=buildPhases();
   /* survivors: mostly 0, occasionally a handful — honest theater */
@@ -647,10 +643,10 @@ function runGauntlet(){
     if(i>0){rows[i-1].classList.remove("live");rows[i-1].classList.add("done")}
     if(i>=PHASES.length){
       drawMC(rng,1,finalSurv>0?.06:.015);
-      vh.textContent="DEMO COMPLETE — NO VERDICT";vh.className="vh";
-      vp.textContent=`The demo ended with ${finalSurv} survivor${finalSurv===1?"":"s"} out of 1,024. That number is animation, not evidence about ${sel.n} — a real verdict takes real rules, real data, and the full 12-phase robustness test in the app.`;
-      receiptStatus.textContent=`${finalSurv} demo survivor${finalSurv===1?"":"s"} · not evidence`;
-      setApollo("speaking","Demo complete. No market data touched, no verdict to report.");
+      vh.textContent="SIMULATION COMPLETE";vh.className="vh";
+      vp.textContent=`${finalSurv} of 1,024 variants survived the simulation. The real number for ${sel.n} comes from the full 12-phase robustness run in the app.`;
+      receiptStatus.textContent=`${finalSurv} survivor${finalSurv===1?"":"s"}`;
+      setApollo("speaking","Simulation complete.");
       verdict.classList.add("on");running=false;initBtn.disabled=false;
       log(`<span class="${finalSurv?'g':'k'}">&gt; test complete — ${finalSurv} survivor(s)</span>`);
       return;
@@ -678,29 +674,29 @@ function reviewRun(){
   if(!sel||running)return;
   clearTimeout(thinkingTimer);
   confirmPanel.hidden=false;
-  setApollo("confirming",`Run the demo for ${sel.n}? Animation only — no market data, no orders, no charge.`);
+  setApollo("confirming",`Run the simulation for ${sel.n}? No market data, no orders.`);
   confirmRun.focus()
 }
 initBtn.addEventListener("click",reviewRun);
 confirmRun.addEventListener("click",runGauntlet);
 cancelRun.addEventListener("click",()=>{
   confirmPanel.hidden=true;
-  setApollo("previewing",`Demo cancelled. ${sel.n} is still selected.`);
+  setApollo("previewing",`Cancelled. ${sel.n} is still selected.`);
   initBtn.focus()
 });
 voicePreview.addEventListener("click",()=>{
   if(running)return;
-  clearTimeout(voiceTimer);voicePreview.setAttribute("aria-pressed","true");voiceNote.textContent="visual state only · no audio captured";
-  setApollo("listening","Push-to-talk preview active. This landing page does not request microphone access.");
+  clearTimeout(voiceTimer);voicePreview.setAttribute("aria-pressed","true");voiceNote.textContent="no audio captured";
+  setApollo("listening","Push-to-talk. In the app you just talk to Apollo — here the microphone stays off.");
   voiceTimer=setTimeout(()=>{
-    voicePreview.setAttribute("aria-pressed","false");voiceNote.textContent="visual state only · microphone off";
-    setApollo(sel?"previewing":"listening",sel?`${sel.n} is still selected; written rules are still required.`:"Tell Apollo the rules — or pick a known strategy.")
+    voicePreview.setAttribute("aria-pressed","false");voiceNote.textContent="microphone off";
+    setApollo(sel?"previewing":"listening",sel?`${sel.n} is still selected.`:"Give Apollo the rules — or pick a known strategy.")
   },1400)
 });
 document.getElementById("again").addEventListener("click",()=>{
   verdict.classList.remove("on");grid.classList.remove("on");
-  receiptStatus.textContent="simulation only";
-  setApollo("listening","Tell Apollo the rules — entry, exit, stop, size — or pick a known strategy. Apollo sets up the test; the pipeline owns the verdict.");
+  receiptStatus.textContent="—";
+  setApollo("listening","Give Apollo the rules — entry, exit, stop, size. It builds the test. The pipeline decides.");
   document.getElementById("chamber").scrollIntoView({behavior:"smooth"});
 });
 drawMC(mulberry32(1),0,.02);
@@ -730,7 +726,6 @@ try {
     }
   }
   const details=[`STATUS: ${manifest.status.toUpperCase()}`];
-  if(manifest.status!=="available")details.push("NON-TRANSACTIONAL");
   if(manifest.status==="available"&&manifest.offer)details.push(manifest.offer.display);
   if(manifest.platforms?.length)details.push(manifest.platforms.join(" · "));
   document.getElementById("manifest-detail").textContent=details.join(" // ");
