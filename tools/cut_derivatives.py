@@ -217,8 +217,11 @@ def main() -> int:
             "reviewedAt": now,
             "copy": seg["copy"],
         }
+        # fingerprint MUST use the batch's own declaration — publish.py validates against it
+        # (2026-07-22 incident: hardcoded True vs batch False = every item rejected pre-upload)
         item["approvalSha256"] = approval_fingerprint(
-            batch["batchId"], item, contains_synthetic_media=True, schema="social-batch/v2")
+            batch["batchId"], item,
+            contains_synthetic_media=batch["containsSyntheticMedia"], schema="social-batch/v2")
         batch["items"].append(item)
     batch_path.write_text(json.dumps(batch, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"[derivatives] batch staged: {batch_path} ({len(batch['items'])} items)")

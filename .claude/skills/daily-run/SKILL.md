@@ -58,9 +58,13 @@ PYTHONIOENCODING=utf-8 OpenMontage/.venv/Scripts/python.exe tools/promote_daily.
 ```
 Does everything: flips the long-form public (read-back verified) → Telegram confirm →
 cuts/gates/publishes the verticals to youtube, tiktok, instagram, facebook (per-platform
-failure never stops the rest; ledger printed at the end). TikTok "uploaded-unverified"
-during its minutes-long review hold is NOT a failure — verify in TikTok Studio before any
-retry (retry = double post); the hold clears to the chosen privacy on its own.
+failure never stops the rest; ledger printed at the end). TikTok "uploaded-unverified" has
+TWO cases (2026-07-21): (a) real review hold — the post IS in Studio ("Content under
+review", privacy Only me) and clears to the chosen privacy on its own; (b) the upload
+silently vanished — NOT in Studio posts or drafts. Studio post-count is the truth signal,
+never the transport's exit code. Case (b) after TWO spaced Studio checks = safe to retry
+the single item (`publish.py --item tiktok-<label>`); one clip took 3 attempts before
+landing. NEVER blind-retry case (a) — that's the double-post.
 Detail + scars: skill **post-approval-derivatives**.
 
 ### 4. Close-out (same wave, never "later")

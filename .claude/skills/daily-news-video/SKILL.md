@@ -110,6 +110,15 @@ instead of padding or entering an open-ended rerender loop. Do not lower evidenc
 
 1. Build the dated primary-source fact pack, including market-relevant political, conflict,
    sanctions, defence, energy, shipping, election, and cyber events.
+   **Source tier is a hard constraint (operator ruling 2026-07-21, issued approving
+   daily-2026-07-21):** on-screen news shots and on-air attribution come from MAJOR reputable
+   outlets only — Reuters (and its wire carriers), Bloomberg/BNN, New York Times, WSJ, FT, AP,
+   Al Jazeera, CNBC, NPR, BBC, and official primary sources (Fed, EIA, SEC, company releases).
+   Retail-stock-blog tier — fool.com, Benzinga, Investing.com, Seeking Alpha and similar — is
+   BANNED from the screen and from spoken attribution, even when FETCHED; use it at most as
+   internal corroboration while hunting the same fact on a major. `fetch_news_shots.mjs`
+   enforces the on-screen half deterministically (`APPROVED_SHOT_HOSTS` — extend the list only
+   with operator-grade outlets). The fact-pack agent must be told to FETCH majors first.
 2. Run the fixed TradingView dashboard and `market-analysis`. Choose the lead from confirmation or
    divergence. Emit `analysis-brief.md`, then lock title and thumbnail. Lock = RENDER it now
    (never a video frame; design rules = `thumbnails-first-impressions` house skill):
@@ -152,6 +161,13 @@ instead of padding or entering an open-ended rerender loop. Do not lower evidenc
      after ~18:00 ET) will show Monday's settled candle PLUS a small live stub and a live-value
      header. Acceptable only if attested in the run notes; fully avoidable by capturing before the
      reopen — energy symbols first.
+   - **TVC:GOLD (and any feed whose daily bar rolls at 18:00 ET) has NO settled same-day bar
+     after the reopen** — the feed's "last bar" IS the live next-day stub, `--expect-last-bar`
+     can pass on it, and the tiny-range bar looks plausibly like a quiet session (2026-07-21
+     incident). Detection: header close tracks the live SELL/BUY quote and shows a countdown.
+     If it happens, DROP the asset from the script rather than claim it (VIX carried the
+     no-fear-bid point that night). Also: TVC:GOLD (~4,080) and OANDA:XAUUSD (~4,007) are
+     DIFFERENT gold feeds — never mix them across days.
 3. Write `vo.txt` from the brief, the captured charts, and reference corpus. Mint `claims.yaml` and `vo-receipts.yaml`.
    Run `tools/claims_gate.py` and `tools/script_style_gate.py`, read the script aloud, then stop with
    `script-approval.json` absent or `awaiting_human`. Proceed only after the operator explicitly
@@ -192,7 +208,10 @@ instead of padding or entering an open-ended rerender loop. Do not lower evidenc
    text exactly — `tools/scene_sync.py <prod> --check` verifies concat == section and fails loudly.
 
    News-clip length contract (2026-07-20 incident): the assembler HARD-FAILS a news clip shorter
-   than its narration beat — it will not loop entrance/exit animations. After the VO stage, read
+   than its narration beat — it will not loop entrance/exit animations. **Pre-size holdSec
+   BEFORE the first runner attempt**: narration words ÷ 197 wpm × 60 + ~8s buffer per news beat
+   (2026-07-21: placeholder 24s holds vs 50–70s beats would have failed mid-run; generous holds
+   cost nothing — the assembler trims to the beat). After the VO stage, read
    each news beat's length (`ffprobe build/vo-NN.wav`), set that shot's `holdSec` ≥ narration + 2s,
    delete the stale `visuals/<out>.mp4` (the renderer also skips existing outputs), and re-render
    with `fetch_news_shots.mjs --reuse-png` (no refetch, deterministic; arg order is
@@ -207,13 +226,17 @@ instead of padding or entering an open-ended rerender loop. Do not lower evidenc
    the final section. New bed tracks need a license row in `music_library/README.md` first;
    craft judgment reference = the `video-editing-craft` house skill.
 
-   VO-stage precondition (2026-07-20 incident, reproduced 3×): Chatterbox model load needs
-   roughly 4–5 GB of FREE SYSTEM RAM on this 16 GB box. A `0xC0000005` / segfault (exit
-   3221225477) right after `[clone] loading Chatterbox on cuda` is RAM pressure, not a code or
-   CUDA defect — CUDA smoke tests pass, the weights are intact. Close TradingView Desktop
-   (chart work is finished by this stage; it holds ~2 GB) and other Chromium apps, then rerun
-   `tools/daily_postclose.py` — it is rerun-safe: gates re-check, approval rewrites hash-bound,
-   existing `vo-NN.wav` are skipped.
+   VO-stage precondition (2026-07-20 incident, reproduced 3×; sharpened 2026-07-21): the binding
+   constraint is **COMMIT, not free RAM** — this box is 16 GB RAM + a FIXED 16 GB pagefile
+   (32 GB commit ceiling), and Chatterbox generation needs ~8 GB of commit headroom. Failure
+   faces: `OSError 1455 paging file too small` at safetensors load, `0xC0000005` (exit
+   3221225477) at model load, or a tiny (<2 MiB) numpy allocation failing MID-SAMPLING. All the
+   same cause. Check `Win32_OperatingSystem` commit used/limit, not just free RAM. Close
+   TradingView, Firefox/ChatGPT/Chromium apps, orphan codex app-servers; if an esq test run or
+   ingest holds multi-GB commit, SERIALIZE behind it (`Wait-Process` then rerun) instead of
+   killing production processes. `tools/daily_postclose.py` is rerun-safe: gates re-check,
+   approval rewrites hash-bound, existing `vo-NN.wav` are skipped. Standing fix candidate:
+   raise pagefile max to 32 GB (reboot, operator-gated).
 6. Inspect the actual final export at every declared subject-change boundary plus representative
    midpoints. Check symbol, timeframe, price axis, source/date, containment, safe area, audio,
    runtime, and 9:16 SAR. Declarations and contact sheets alone are not proof.

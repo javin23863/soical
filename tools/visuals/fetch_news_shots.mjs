@@ -151,10 +151,28 @@ function badgeFor(src) {
       + (src.dated ? `  ${src.dated}` : '')
 }
 
+// Operator ruling 2026-07-21 (issued approving daily-2026-07-21): on-screen news shots come
+// from major reputable outlets ONLY — no fool.com / retail-stock-blog tier. Official primary
+// sources (regulators, company releases, wires) are always allowed.
+const APPROVED_SHOT_HOSTS = [
+  'nytimes.com', 'bloomberg.com', 'bnnbloomberg.ca', 'reuters.com', 'apnews.com',
+  'aljazeera.com', 'wsj.com', 'ft.com', 'cnbc.com', 'npr.org', 'bbc.com', 'bbc.co.uk',
+  'usnews.com', 'washingtonpost.com', 'cnn.com', 'abcnews.go.com', 'nbcnews.com',
+  'federalreserve.gov', 'eia.gov', 'sec.gov', 'prnewswire.com', 'businesswire.com',
+]
+const hostAllowed = (url) => {
+  const h = new URL(url).hostname.replace(/^www\./, '')
+  return APPROVED_SHOT_HOSTS.some((a) => h === a || h.endsWith('.' + a))
+}
+
 async function run(sourcesPath, prodDir, dry, reuse) {
   const sources = JSON.parse(fs.readFileSync(sourcesPath, 'utf8'))
   sources.forEach((s, i) => {
     for (const k of ['out', 'url']) if (!s[k]) throw new Error(`sources[${i}] missing "${k}"`)
+    if (!s.url.startsWith('tweet:') && !hostAllowed(s.url)) {
+      throw new Error(`sources[${i}] "${s.out}": host not on APPROVED_SHOT_HOSTS `
+        + `(operator ruling 2026-07-21 — majors only, no off-brand outlets): ${s.url}`)
+    }
   })
   if (dry) { console.log(`DRY RUN OK — ${sources.length} sources validated`); return }
 
